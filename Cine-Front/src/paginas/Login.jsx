@@ -1,14 +1,14 @@
 import { useState } from "react";
-import "./Pagina1.css";
+import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
 function App() {
-  const [username, setusername] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [token, setToken] = useState("");
   const [registrado, setRegistrado] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
+  const [registrarUsuario, setRegistrarUsuario] = useState(false);
   const navigate = useNavigate();
 
   const login = async (e) => {
@@ -25,7 +25,7 @@ function App() {
     if (response.ok) {
       const { token } = await response.json();
 
-      setusername("");
+      setUsername("");
       setPassword("");
       setError("");
 
@@ -51,8 +51,8 @@ function App() {
       setRegistrado(
         "username registrado exitosamente. Ahora puedes iniciar sesión."
       );
-      setIsRegistering(false);
-      setusername("");
+      setRegistrarUsuario(false);
+      setUsername("");
       setPassword("");
     } else {
       const errorData = await response.json();
@@ -63,15 +63,15 @@ function App() {
   return (
     <>
       <div>
-        <h1>{isRegistering ? "Registro" : "Inicio de Sesión"}</h1>
-        <form onSubmit={isRegistering ? registro : login}>
+        <h1>{registrarUsuario ? "Registro" : "Inicio de Sesión"}</h1>
+        <form onSubmit={registrarUsuario ? registro : login}>
           <div>
             <label htmlFor="username">username</label>
             <input
               type="text"
               id="username"
               value={username}
-              onChange={(e) => setusername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -85,7 +85,7 @@ function App() {
               required
             />
           </div>
-          {isRegistering ? (
+          {registrarUsuario ? (
             <button type="submit">Registrar</button>
           ) : (
             <button type="submit">Iniciar Sesión</button>
@@ -93,17 +93,19 @@ function App() {
         </form>
 
         <p>
-          {isRegistering ? (
+          {registrarUsuario ? (
             <span>
               ¿Ya tienes una cuenta?{" "}
-              <button onClick={() => setIsRegistering(false)}>
+              <button onClick={() => setRegistrarUsuario(false)}>
                 Inicia sesión
               </button>
             </span>
           ) : (
             <span>
               ¿No tienes una cuenta?{" "}
-              <button onClick={() => setIsRegistering(true)}>Regístrate</button>
+              <button onClick={() => setRegistrarUsuario(true)}>
+                Regístrate
+              </button>
             </span>
           )}
         </p>

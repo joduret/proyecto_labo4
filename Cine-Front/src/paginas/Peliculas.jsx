@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Pagina2.css";
+import "./Peliculas.css";
 
 function App() {
   const [peliculas, setPeliculas] = useState([]);
@@ -92,7 +92,7 @@ function App() {
     }
   };
   const quitarPelicula = async (id) => {
-    if (confirm("¿Desea quitar esta película?")) {
+    if (confirm(`¿Desea quitar esta película: ${titulo}?`)) {
       const response = await fetch(`http://localhost:3000/peliculas/${id}`, {
         method: "DELETE",
       });
@@ -107,70 +107,70 @@ function App() {
     <>
       <h1>Películas</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="titulo">Título </label>
-          <input
-            type="text"
-            id="titulo"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="descripcion">Descripción </label>
-          <input
-            type="text"
-            id="descripcion"
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="año">Año </label>
-          <input
-            type="number"
-            id="año"
-            value={año}
-            onChange={(e) => setAño(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="duracion">Duración (min) </label>
-          <input
-            type="number"
-            id="duracion"
-            value={duracion}
-            onChange={(e) => setDuracion(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="genero">Género </label>
-          <input
-            type="text"
-            id="genero"
-            value={genero}
-            onChange={(e) => setGenero(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="director">Director </label>
-          <input
-            type="text"
-            id="director"
-            value={director}
-            onChange={(e) => setDirector(e.target.value)}
-            required
-          />
-        </div>
-        {peliculaId === 0 && <button type="submit">Agregar</button>}
+        <label htmlFor="titulo">Título </label>
+        <input
+          type="text"
+          id="titulo"
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+          required
+        />
+
+        <label htmlFor="descripcion">Descripción </label>
+        <input
+          type="text"
+          id="descripcion"
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+          required
+        />
+
+        <label htmlFor="año">Año </label>
+        <input
+          type="number"
+          id="año"
+          value={año}
+          onChange={(e) => setAño(e.target.value)}
+          required
+        />
+
+        <label htmlFor="duracion">Duración (min) </label>
+        <input
+          type="number"
+          id="duracion"
+          value={duracion}
+          onChange={(e) => setDuracion(e.target.value)}
+          required
+        />
+
+        <label htmlFor="genero">Género </label>
+        <input
+          type="text"
+          id="genero"
+          value={genero}
+          onChange={(e) => setGenero(e.target.value)}
+          required
+        />
+
+        <label htmlFor="director">Director </label>
+        <input
+          type="text"
+          id="director"
+          value={director}
+          onChange={(e) => setDirector(e.target.value)}
+          required
+        />
+
+        {peliculaId === 0 && (
+          <button type="submit" className="boton-agregar">
+            Agregar Película
+          </button>
+        )}
         {peliculaId !== 0 && (
           <>
-            <button onClick={modificarPeliculaApi}>Modificar</button>
+            <button className="boton-editar" onClick={modificarPeliculaApi}>
+              Editar Película
+            </button>
             <button
               onClick={() => {
                 setPeliculaId(0);
@@ -192,16 +192,18 @@ function App() {
           <li key={pelicula.id}>
             {`${pelicula.id}: ${pelicula.titulo} (${pelicula.año}) - ${pelicula.director}`}
             <button
+              className="boton-editar"
               onClick={() => modificarPelicula(pelicula)}
               disabled={peliculaId !== 0}
             >
-              Editar
+              Editar Película
             </button>
             <button
+              className="boton-eliminar"
               onClick={() => quitarPelicula(pelicula.id)}
               disabled={peliculaId !== 0}
             >
-              Eliminar
+              Eliminar Película
             </button>
           </li>
         ))}

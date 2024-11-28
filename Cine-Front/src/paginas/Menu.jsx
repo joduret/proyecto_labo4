@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <Link to="/pagina2">
+      <Link to="/peliculas">
         <button>Agregar Peliculas a la Función</button>
       </Link>
       <Link to="/pagina3">
