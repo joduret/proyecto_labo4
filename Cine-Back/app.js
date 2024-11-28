@@ -4,6 +4,7 @@ import peliculasRouter from "./peliculas.js";
 import loginRouter from "./login.js";
 import { conectarDB } from "./db.js";
 import autenticacionRouter from "./autenticacion.js";
+import asientosRouter from "./asientos.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 app.use("/peliculas", peliculasRouter);
 app.use("/login", loginRouter);
 app.use("/autenticacion", autenticacionRouter);
+app.use("/asientos", asientosRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
