@@ -3,32 +3,31 @@ import "./Pagina3.css";
 //import { useNavigate } from "react-router-dom";
 
 function App() {
-    const [peliculas, setPeliculas] = useState([]);
-    const [peliculaSeleccionada, setPeliculaSeleccionada] = useState([])
-    const [overlayHorario, setOverlayHorario] = useState(false);
-    
-    const getPeliculas = async () => {
-        const response = await fetch("http://localhost:3000/peliculas/titulos");
-        if (response.ok) {
-          const { peliculas } = await response.json();
-          setPeliculas(peliculas);
-        }
-      };
-    
-      useEffect(() => {
-        getPeliculas();
-      }, []);
+  const [peliculas, setPeliculas] = useState([]);
+  const [peliculaSeleccionada, setPeliculaSeleccionada] = useState([]);
+  const [overlayHorario, setOverlayHorario] = useState(false);
 
-      const handleButtonClick = (pelicula) => {
-        setPeliculaSeleccionada(pelicula); 
-        setOverlayHorario(true);
-      };
+  const getPeliculas = async () => {
+    const response = await fetch("http://localhost:3000/peliculas/titulos");
+    if (response.ok) {
+      const { peliculas } = await response.json();
+      setPeliculas(peliculas);
+    }
+  };
 
-      const cerrarOverlay = () => {
-        setOverlayHorario(false); 
-        setPeliculaSeleccionada(null); 
-      };
-    
+  useEffect(() => {
+    getPeliculas();
+  }, []);
+
+  const handleButtonClick = (pelicula) => {
+    setPeliculaSeleccionada(pelicula);
+    setOverlayHorario(true);
+  };
+
+  const cerrarOverlay = () => {
+    setOverlayHorario(false);
+    setPeliculaSeleccionada(null);
+  };
 
   return (
     <>
@@ -47,11 +46,19 @@ function App() {
         <div className="overlay">
           <div className="overlay-content">
             <h3>{peliculaSeleccionada.titulo}</h3>
-            <button className="botones-horario">Viernes 29 de Noviembre - 18:00</button>
-            <button className="botones-horario">Viernes 29 de Noviembre - 21:00</button>
-            <button className="botones-horario">Viernes 29 de Noviembre - 23:30</button>
-            <br/>
-            <button className="boton-cerrar" onClick={cerrarOverlay}>x</button>
+            <button className="botones-horario">
+              Viernes 29 de Noviembre - 18:00
+            </button>
+            <button className="botones-horario">
+              Viernes 29 de Noviembre - 21:00
+            </button>
+            <button className="botones-horario">
+              Viernes 29 de Noviembre - 23:30
+            </button>
+            <br />
+            <button className="boton-cerrar" onClick={cerrarOverlay}>
+              x
+            </button>
           </div>
         </div>
       )}

@@ -32,7 +32,7 @@ router.post(
     if (usuarios.length === 0) {
       res
         .status(400)
-        .send({ error: "El usuario o contraseña es invalido, reintetar" });
+        .send({ error: "El usuario o contraseña es invalido, reintentar" });
       return;
     }
     const passwordComparada = await bcrypt.compare(
@@ -42,10 +42,10 @@ router.post(
     if (!passwordComparada) {
       res
         .status(400)
-        .send({ error: "El usuario o contraseña es invalido, reintetar" });
+        .send({ error: "El usuario o contraseña es invalido, reintentar" });
       return;
     }
-    // aqui esta el errrrrrrrrrrrrrorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+
     const payload = { username, rol: "admin", dato: 123 };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "2h",

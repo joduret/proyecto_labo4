@@ -29,7 +29,7 @@ function App() {
       setPassword("");
       setError("");
 
-      navigate("/pagina2");
+      navigate("/menu");
     } else {
       const errorData = await response.json();
       setError(errorData.error || "Error en el inicio de sesión");

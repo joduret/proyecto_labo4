@@ -33,9 +33,7 @@ router.post(
       "insert into usuarios (username, password) values (?,?)",
       [username, contraseña]
     );
-    res
-      .status(201)
-      .send({ usuario: { id_usuario: result.insertId, username } });
+    res.status(201).send({ usuario: { idusuario: result.insertId, username } });
   }
 );
 

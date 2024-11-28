@@ -6,8 +6,8 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const [peliculas, fields] = await db.execute("SELECT * FROM peliculas");
   res.send({
-    peliculas: peliculas.map(({ id_peliculas, ...elemento }) => ({
-      id: id_peliculas,
+    peliculas: peliculas.map(({ idpelicula: idpelicula, ...elemento }) => ({
+      id: idpelicula,
       ...elemento,
     })),
   });
@@ -17,24 +17,24 @@ router.get("/titulos", async (req, res) => {
   const [peliculas, fields] = await db.execute("select titulo from peliculas ");
   res.send({
     peliculas: peliculas.map((elemento) => ({
-      id: elemento.id_peliculas,
+      id: elemento.idpelicula,
       ...elemento,
     })),
   });
 });
 
 router.get("/:id", async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
 
-  const sql = `SELECT * FROM peliculas WHERE id=?`
-  const [peliculas] = await db.execute(sql, [id])
+  const sql = `SELECT * FROM peliculas WHERE id=?`;
+  const [peliculas] = await db.execute(sql, [id]);
 
   if (peliculas.length === 0) {
-      res.status(204).send()
+    res.status(204).send();
   } else {
-      res.send({ pelicula: peliculas[0]})
+    res.send({ pelicula: peliculas[0] });
   }
-})
+});
 
 router.post("/", async (req, res) => {
   const titulo = req.body.titulo;
@@ -72,7 +72,7 @@ router.put("/:id", async (req, res) => {
   const director = req.body.director;
 
   await db.execute(
-    "update  peliculas set titulo=?, descripcion=?, año=?, duracion=?, genero=?, director=? where id_peliculas=?",
+    "update  peliculas set titulo=?, descripcion=?, año=?, duracion=?, genero=?, director=? where idpelicula=?",
     [titulo, descripcion, año, duracion, genero, director, id]
   );
 
@@ -91,7 +91,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
-  await db.execute("delete from peliculas where id_peliculas=?", [id]);
+  await db.execute("delete from peliculas where idpelicula=?", [id]);
   res.send({ id: parseInt(id) });
 });
 
